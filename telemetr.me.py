@@ -16,6 +16,8 @@ headers = {'User-Agent': ua.random}
 
 url = 'https://telemetr.me/channels/'
 
+# bs4 ~в 10 раз медленнее, чем lxml
+# requests, чтобы парсер работал еще быстрее, то лучше использовать Session.
 with requests.Session() as se:
     se.headers = headers
 
@@ -41,6 +43,8 @@ for sort in pages:
         link = el.find('a')
         try:
             print(link.get('href'))
+
+            # Можно еще повесить обработку ошибок, если файл не открылся
             with open(f'{input_category}.txt', 'a') as file:
                 file.write(f'{link.get("href")}\n')
 

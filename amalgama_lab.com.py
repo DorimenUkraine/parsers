@@ -8,8 +8,9 @@ import csv
 def parser_url(url):
     try:
         api = requests.get(url)
-    except:
-        pass
+    except Exception as e:
+        print(e)
+
     tree = lxml.html.document_fromstring(api.text)
     text_original = tree.xpath('//*[@id="click_area"]/div//*[@class="original"]/')
     text_translate = tree.xpath('//*[@id="click_area"]/div//*[@class="translate"]/')
